@@ -1466,7 +1466,6 @@ $.extend(Datepicker.prototype, {
 
 	/* A date may be specified as an exact value or a relative one. */
 	_determineDate: function(inst, date, defaultDate) {
-		var self = this;
 		var offsetNumeric = function(offset) {
 				var date = new Date();
 				date.setDate(date.getDate() + offset);
@@ -1506,11 +1505,10 @@ $.extend(Datepicker.prototype, {
 					}
 					matches = pattern.exec(offset);
 				}
-				return self._getRealDate(year, month, day);
+				return $.datepicker._getRealDate(year, month, day);
 			},
 			newDate = (date == null || date === "" ? defaultDate : (typeof date === "string" ? offsetString(date) :
-				(typeof date === "number" ? (isNaN(date) ? defaultDate : offsetNumeric(date)) : 
-date.getTime()))));
+				(typeof date === "number" ? (isNaN(date) ? defaultDate : offsetNumeric(date)) : new Date(date.getTime()))));
 
 		newDate = (newDate && newDate.toString() === "Invalid Date" ? defaultDate : newDate);
 		if (newDate) {
